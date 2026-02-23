@@ -1,0 +1,56 @@
+{
+  "name": "skipcolon",
+  "displayName": "skipColon",
+  "description": "Skip semicolons after accepting CSS suggestions by moving the cursor past them automatically.",
+  "version": "0.0.1",
+  "publisher": "selim",
+  "license": "MIT",
+  "homepage": "https://github.com/selim/skipcolon",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/selim/skipcolon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/selim/skipcolon/issues"
+  },
+  "engines": {
+    "vscode": "^1.109.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "css",
+    "scss",
+    "less",
+    "semicolon",
+    "cursor",
+    "intellisense",
+    "autocomplete"
+  ],
+  "activationEvents": [
+    "onLanguage:css",
+    "onLanguage:scss",
+    "onLanguage:less"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {},
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.109.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.54.0"
+  }
+}
