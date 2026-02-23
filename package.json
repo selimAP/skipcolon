@@ -3,15 +3,15 @@
   "displayName": "skipColon",
   "description": "Skip semicolons after accepting CSS suggestions by moving the cursor past them automatically.",
   "version": "0.0.1",
-  "publisher": "selim",
+  "publisher": "selimAP",
   "license": "MIT",
-  "homepage": "https://github.com/selim/skipcolon",
+  "homepage": "https://github.com/selimAP/skipcolon",
   "repository": {
     "type": "git",
-    "url": "https://github.com/selim/skipcolon.git"
+    "url": "https://github.com/selimAP/skipcolon.git"
   },
   "bugs": {
-    "url": "https://github.com/selim/skipcolon/issues"
+    "url": "https://github.com/selimAP/skipcolon/issues"
   },
   "engines": {
     "vscode": "^1.109.0"
