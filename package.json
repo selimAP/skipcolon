@@ -2,7 +2,7 @@
   "name": "skipcolon",
   "displayName": "skipColon",
   "description": "Skip semicolons after accepting CSS suggestions by moving the cursor past them automatically.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "selimAP",
   "license": "MIT",
   "homepage": "https://github.com/selimAP/skipcolon",
@@ -28,6 +28,11 @@
     "intellisense",
     "autocomplete"
   ],
+  "icon": "images/skipcolon_logo.png",
+  "galleryBanner": {
+    "color": "#F6F4F0",
+    "theme": "light"
+  },
   "activationEvents": [
     "onLanguage:css",
     "onLanguage:scss",
