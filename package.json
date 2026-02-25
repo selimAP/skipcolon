@@ -2,7 +2,7 @@
   "name": "skipcolon",
   "displayName": "skipColon",
   "description": "Skip semicolons after accepting CSS suggestions by moving the cursor past them automatically.",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "publisher": "selimAP",
   "license": "MIT",
   "homepage": "https://github.com/selimAP/skipcolon",

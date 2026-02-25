@@ -18,6 +18,11 @@ skipColon moves it to:
 - SCSS
 - LESS
 
+## Links
+
+- 🔌 VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=selimAP.skipcolon  
+- 💻 GitHub Repository: https://github.com/selimAP/skipcolon
+
 ## Notes
 
 - No keybindings required.
