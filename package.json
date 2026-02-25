@@ -36,10 +36,25 @@
   "activationEvents": [
     "onLanguage:css",
     "onLanguage:scss",
-    "onLanguage:less"
+    "onLanguage:less",
+    "onCommand:skipcolon.acceptSuggestionAndSkipSemicolon"
   ],
   "main": "./out/extension.js",
-  "contributes": {},
+  "contributes": {
+    "commands": [
+      {
+        "command": "skipcolon.acceptSuggestionAndSkipSemicolon",
+        "title": "Accept suggestion and skip semicolon (CSS)"
+      }
+    ],
+    "keybindings": [
+      {
+        "key": "enter",
+        "command": "skipcolon.acceptSuggestionAndSkipSemicolon",
+        "when": "suggestWidgetVisible && editorTextFocus && (editorLangId == css || editorLangId == scss || editorLangId == less)"
+      }
+    ]
+  },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",

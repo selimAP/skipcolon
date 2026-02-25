@@ -1,54 +1,48 @@
 import * as vscode from "vscode";
 
-let skipping = false;
-
 const isStylesheet = (doc: vscode.TextDocument) =>
   doc.languageId === "css" || doc.languageId === "scss" || doc.languageId === "less";
 
+function isCursorInsideValue(doc: vscode.TextDocument, pos: vscode.Position) {
+  const line = doc.lineAt(pos.line).text;
+
+  const colon = line.lastIndexOf(":", pos.character - 1);
+  if (colon === -1) return false;
+
+  const semi = line.indexOf(";", colon + 1);
+  if (semi === -1) return false;
+
+  return pos.character > colon && pos.character <= semi;
+}
+
 export function activate(context: vscode.ExtensionContext) {
-  const disposable = vscode.workspace.onDidChangeTextDocument((e) => {
-    if (skipping) return;
+  context.subscriptions.push(
+    vscode.commands.registerCommand("skipcolon.acceptSuggestionAndSkipSemicolon", async () => {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) return;
 
-    const editor = vscode.window.activeTextEditor;
-    if (!editor) return;
-
-    const doc = editor.document;
-    if (doc !== e.document) return;
-    if (!isStylesheet(doc)) return;
-
-    if (e.contentChanges.length === 0) return;
-
-    const change = e.contentChanges[0];
-    if (!change.text) return;
-    if (change.text.includes("\n") || change.text.includes("\r")) return;
-
-    setTimeout(() => {
-      if (skipping) return;
-
-      const ed = vscode.window.activeTextEditor;
-      if (!ed || ed.document !== doc) return;
-      if (!ed.selection.isEmpty) return;
-
-      const pos = ed.selection.active;
-      const line = doc.lineAt(pos.line).text;
-
-      if (pos.character >= line.length) return;
-      if (line[pos.character] !== ";") return;
-
-      const prevChar = pos.character > 0 ? line[pos.character - 1] : "";
-      if (!prevChar || /\s/.test(prevChar)) return;
-
-      skipping = true;
-      try {
-        const newPos = pos.translate(0, 1);
-        ed.selection = new vscode.Selection(newPos, newPos);
-      } finally {
-        skipping = false;
+      const doc = editor.document;
+      if (!isStylesheet(doc)) {
+        await vscode.commands.executeCommand("acceptSelectedSuggestion");
+        return;
       }
-    }, 0);
-  });
 
-  context.subscriptions.push(disposable);
+      const beforePos = editor.selection.active;
+      const wasInsideValue = isCursorInsideValue(doc, beforePos);
+
+      await vscode.commands.executeCommand("acceptSelectedSuggestion");
+      await new Promise((r) => setTimeout(r, 0));
+
+      if (!wasInsideValue) return;
+
+      const pos = editor.selection.active;
+      const nextChar = doc.getText(new vscode.Range(pos, pos.translate(0, 1)));
+      if (nextChar === ";") {
+        const newPos = pos.translate(0, 1);
+        editor.selection = new vscode.Selection(newPos, newPos);
+      }
+    })
+  );
 }
 
 export function deactivate() {}
